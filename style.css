@@ -1,17 +1,21 @@
 /* 감 테스트 — 폰 세로 화면 기준.
    큰 화면에서는 가운데 한 칸으로만 넓어집니다. */
 
+/* 밝은 노란 바탕. 글자색은 모두 바탕·카드 위에서 대비 4.5:1 이상이 되게 골랐다 */
 :root {
-  --bg: #0f1020;
-  --bg2: #191b35;
-  --card: #21243f;
-  --line: #2f3358;
-  --ink: #f2f3fb;
-  --muted: #9aa0c6;
-  --brand: #7c8cff;
-  --ok: #34d399;
-  --warn: #fbbf24;
-  --miss: #fb7185;
+  color-scheme: light;
+  --bg: #ffe98a;
+  --bg2: #fff4c4;
+  --card: #ffffff;
+  --line: #e6cf72;
+  --ink: #1f1a0e;
+  --muted: #6b5f3f;
+  --brand: #3346d3;
+  --brand-soft: #e8ebff;
+  --on-brand: #ffffff;
+  --ok: #086c48;
+  --warn: #9a5800;
+  --miss: #c2303d;
   --radius: 16px;
 }
 
@@ -66,8 +70,8 @@ button {
   font: inherit; font-weight: 700; border: 0; border-radius: 14px;
   width: 100%; padding: 17px; cursor: pointer;
 }
-.primary { background: var(--brand); color: #0e1030; }
-.primary:disabled { background: var(--line); color: var(--muted); cursor: default; }
+.primary { background: var(--brand); color: var(--on-brand); }
+.primary:disabled { background: var(--line); color: #5a4e30; cursor: default; }
 .ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
 .actions { display: grid; gap: 10px; margin-top: 26px; }
 
@@ -87,7 +91,7 @@ button {
   transition: transform .06s ease, border-color .15s ease;
 }
 .choice:active { transform: scale(.985); }
-.choice[aria-pressed="true"] { border-color: var(--brand); background: #2a2f5c; }
+.choice[aria-pressed="true"] { border-color: var(--brand); background: var(--brand-soft); }
 
 /* 슬라이더 */
 .slider-out {
@@ -131,7 +135,7 @@ input[type=range]::-moz-range-thumb {
 
 /* 결과 — 촌평 */
 .ai {
-  background: linear-gradient(135deg, #2a2f5c, #21243f);
+  background: linear-gradient(135deg, var(--brand-soft), var(--card));
   border: 1px solid var(--line); border-radius: var(--radius);
   padding: 16px 17px; font-size: 14.5px; margin-bottom: 16px;
 }
@@ -171,7 +175,7 @@ input[type=range]::-moz-range-thumb {
 }
 .pill.real { border-color: var(--ok); color: var(--ok); font-weight: 700; }
 .pill.mine { border-color: var(--miss); color: var(--miss); }
-.pill.both { border-color: var(--ok); background: rgba(52,211,153,.14); color: var(--ok); font-weight: 700; }
+.pill.both { border-color: var(--ok); background: rgba(11,122,83,.12); color: var(--ok); font-weight: 700; }
 
 /* 슬라이더 결과 — 손잡이가 정답으로 움직입니다 */
 .track { position: relative; height: 34px; margin: 2px 0 12px; }
@@ -185,7 +189,7 @@ input[type=range]::-moz-range-thumb {
 }
 .track .ghost { background: var(--line); border: 2px solid var(--muted); }
 .track .live {
-  background: var(--ok); box-shadow: 0 0 0 4px rgba(52,211,153,.18);
+  background: var(--ok); box-shadow: 0 0 0 4px rgba(11,122,83,.18);
   transition: left 1s cubic-bezier(.22,1,.36,1);
 }
 
