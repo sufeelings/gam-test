@@ -1,6 +1,6 @@
 {
-  "title": "감 테스트",
-  "subtitle": "숫자에 대한 당신의 감은 몇 점입니까",
+  "title": "내 감 vs 데이터",
+  "subtitle": "생각한 숫자와 실제 데이터, 얼마나 가까울까요?",
   "grades": [
     {
       "min": 90,
@@ -51,6 +51,13 @@
     }
   ],
   "topics": [
+    {
+      "id": "mobile",
+      "emoji": "📱",
+      "title": "나라별 휴대전화 가입 회선",
+      "blurb": "100명당 휴대전화 가입 회선 수, 2000~2024년",
+      "source": "World Bank Open Data (ITU)"
+    },
     {
       "id": "seoul-heat",
       "emoji": "🌡️",
@@ -127,13 +134,6 @@
       "title": "서울의 눈",
       "blurb": "1990년부터 2024년까지, 서울의 하루 강설량",
       "source": "Open-Meteo Archive (ERA5 재분석)"
-    },
-    {
-      "id": "mobile",
-      "emoji": "📱",
-      "title": "나라별 휴대전화 가입 회선",
-      "blurb": "100명당 휴대전화 가입 회선 수, 2000~2024년",
-      "source": "World Bank Open Data (ITU)"
     }
   ]
 }

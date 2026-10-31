@@ -5,3 +5,4 @@ __pycache__/
 .env
 .vercel/
 주제.md
+.DS_Store
