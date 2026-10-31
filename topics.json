@@ -127,6 +127,13 @@
       "title": "서울의 눈",
       "blurb": "1990년부터 2024년까지, 서울의 하루 강설량",
       "source": "Open-Meteo Archive (ERA5 재분석)"
+    },
+    {
+      "id": "mobile",
+      "emoji": "📱",
+      "title": "나라별 휴대전화 가입 회선",
+      "blurb": "100명당 휴대전화 가입 회선 수, 2000~2024년",
+      "source": "World Bank Open Data (ITU)"
     }
   ]
 }

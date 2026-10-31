@@ -90,6 +90,11 @@ SOURCES: list[tuple[str, str, str]] = [
      "https://api.worldbank.org/v2/country/all/indicator/IT.NET.USER.ZS"
      "?format=json&per_page=20000&date=1990:2023"),
 
+    ("wb_mobile.json",
+     "휴대전화 가입 회선 100명당 전세계 2000~2025 (World Bank IT.CEL.SETS.P2)",
+     "https://api.worldbank.org/v2/country/all/indicator/IT.CEL.SETS.P2"
+     "?format=json&per_page=20000&date=2000:2025"),
+
     ("usdkrw.json",
      "원달러 환율 1999~ (Frankfurter · ECB)",
      "https://api.frankfurter.dev/v1/1999-01-04..2024-12-31"

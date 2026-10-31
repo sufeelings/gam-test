@@ -714,6 +714,68 @@ topic(
            f"적설 기록과 다릅니다. 여기서는 하루 최대가 {max_snow['snow']:.1f}cm"
            f"({max_snow['d']:%Y년})입니다.")
 
+# ── 12. 휴대전화 ─────────────────────────────────────────────────
+# 기기 수가 아니라 **가입 회선 수**다. 선불 계정·두 번째 회선까지 세므로 100을 넘는다.
+# 2025년은 세계 집계(WLD)에만 값이 있고 나라별 값이 없어서 2024년을 기준으로 삼는다.
+mob = [r for r in load_json("wb_mobile.json")[1] if r["value"] is not None]
+MOB_Y = 2024
+
+
+def mob_val(code, year):
+    return next(r["value"] for r in mob
+                if r["countryiso3code"] == code and int(r["date"]) == year)
+
+
+kor_m = mob_val("KOR", MOB_Y)
+wld_m = mob_val("WLD", MOB_Y)
+kor_m_by = {int(r["date"]): r["value"] for r in mob if r["countryiso3code"] == "KOR"}
+kor_100 = min(y for y, v in kor_m_by.items() if v >= 100)
+m_cur = wb_countries(mob, MOB_Y)
+over100 = sum(1 for v in m_cur.values() if v >= 100)
+over_pct = over100 / len(m_cur) * 100
+four = {c: mob_val(c, MOB_Y) for c in ("KOR", "USA", "CHN", "IND")}
+name_m = {"KOR": "한국", "USA": "미국", "CHN": "중국", "IND": "인도"}
+top_m = max(four, key=four.get)
+
+topic(
+    "mobile", "📱", "나라별 휴대전화 가입 회선",
+    "100명당 휴대전화 가입 회선 수, 2000~2024년",
+    "World Bank Open Data (ITU)",
+    "https://data.worldbank.org/indicator/IT.CEL.SETS.P2",
+    [
+        slider("m1", "한국은 100명당 휴대전화 가입 회선이 몇 개일까?",
+               kor_m, "개", 50, 250, 5,
+               f"{MOB_Y}년 한국(KOR)의 100명당 휴대전화 가입 회선 수 {kor_m:.1f}개",
+               "'한 사람에 한 대'라고 떠올리기 쉽지만, 회선은 사람 수보다 많습니다."),
+        slider("m2", "세계 평균은 100명당 몇 개일까?",
+               wld_m, "개", 50, 200, 5,
+               f"{MOB_Y}년 World Bank 세계 집계(WLD)의 100명당 가입 회선 수 {wld_m:.1f}개",
+               "휴대전화가 드문 나라가 많을 거라 생각해 평균을 100 아래로 잡게 됩니다."),
+        slider("m3", "한국이 처음으로 100을 넘은 해는?",
+               kor_100, "년", 2000, MOB_Y, 1,
+               f"2000~{MOB_Y}년 한국 값이 처음 100 이상이 된 해 "
+               f"({kor_100 - 1}년 {kor_m_by[kor_100 - 1]:.1f} → "
+               f"{kor_100}년 {kor_m_by[kor_100]:.1f})",
+               "스마트폰이 퍼진 때를 기준으로 떠올리면 시점이 어긋납니다."),
+        slider("m4", f"{MOB_Y}년 값이 있는 {len(m_cur)}개 나라 중 100을 넘은 나라는 몇 %일까?",
+               over_pct, "%", 0, 100, 5,
+               f"{MOB_Y}년 값이 있는 {len(m_cur)}개 나라(지역 묶음 제외) 중 "
+               f"100 이상인 {over100}개국의 비율 {over_pct:.1f}%",
+               "'잘사는 나라만 넘겠지'라고 생각해 낮게 잡게 됩니다."),
+        choice("m5", "한국·미국·중국·인도 중 100명당 회선이 가장 많은 나라는?",
+               ["한국", "미국", "중국", "인도"], name_m[top_m],
+               f"{MOB_Y}년 100명당 가입 회선 "
+               + " · ".join(f"{name_m[c]} {four[c]:.1f}" for c in four),
+               "기술 강국 하면 떠오르는 나라와 회선이 가장 많은 나라는 다를 수 "
+               "있습니다."),
+    ],
+    # 근거는 World Bank 지표 설명(정의·한계)과 원본 점검 결과다
+    caveat="이 숫자는 기기 수가 아니라 ITU 기준으로 음성 통화가 되는 가입 회선 수"
+           "(선불은 최근 3개월 안에 쓴 것만)이고, 나라마다 '활성 회선'의 정의와 "
+           "회계연도 마감 시점이 달라 각국 통신 당국의 발표와 어긋날 수 있으며, "
+           f"{MOB_Y}년 값은 {len(m_cur)}곳만 낸 가장 최근 값이라 다시 받으면 "
+           "고쳐질 수 있습니다.")
+
 
 # ════════════════════════════════════════════════════════════════
 def main() -> None:
